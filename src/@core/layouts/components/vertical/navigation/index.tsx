@@ -69,7 +69,8 @@ const Navigation = (props: Props) => {
 
   // ** Ref
   const shadowRef = useRef(null)
-
+  console.log('userNavMenuContent', userNavMenuContent);
+  
   // ** Hooks
   const theme = useTheme()
 

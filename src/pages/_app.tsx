@@ -94,6 +94,7 @@ if (themeConfig.routingLoader) {
 }
 
 const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
+  
   if (guestGuard) {
     return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
   } else if (!guestGuard && !authGuard) {
@@ -114,10 +115,9 @@ const App = (props: ExtendedAppProps) => {
 
   const setConfig = Component.setConfig ?? undefined
 
-  const authGuard = Component.authGuard ?? true
+  const authGuard = Component.authGuard ?? false
 
-  const guestGuard = Component.guestGuard ?? false
-
+  const guestGuard = Component.guestGuard ?? true
   const aclAbilities = Component.acl ?? defaultACLObj
 
   return (

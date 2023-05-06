@@ -27,7 +27,7 @@ const Home = () => {
     if (!router.isReady) {
       return
     }
-
+    router.replace('/home')
     if (auth.user && auth.user.role) {
       const homeRoute = getHomeRoute(auth.user.role)
 
