@@ -2,6 +2,7 @@ import { ArrowForward } from '@mui/icons-material'
 import { Box, Typography } from '@mui/material'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useLayoutEffect, useRef } from 'react'
 
 type CardProps = {
@@ -11,6 +12,7 @@ type CardProps = {
   index: number
   title: string
   bgColor?: string
+  link: string
 }
 const itemVariants = {
   hidden: {
@@ -24,7 +26,7 @@ const itemVariants = {
   })
 }
 
-const Card = ({ height = null, arrow = false, logo = false, index, title, bgColor }: CardProps) => {
+const Card = ({ height = null, arrow = false, logo = false, index, title, bgColor, link }: CardProps) => {
   const delayPerPixel = 0.0005
   const originOffset = useRef({ top: 0, left: 0 })
   const originIndex = 0
@@ -62,14 +64,9 @@ const Card = ({ height = null, arrow = false, logo = false, index, title, bgColo
         custom={delayRef}
         borderRadius={2}
         m={2}
-      
-        sx={
-          height
-            ? {}
-            : {
-                flex: 1
-              }
-        }
+        sx={{
+          ...(height ? {} : { flex: 1 })
+        }}
         width={'100%'}
         position={'relative'}
         {...(height ? { height } : {})}
@@ -109,34 +106,28 @@ const Card = ({ height = null, arrow = false, logo = false, index, title, bgColo
       flexDirection={'column'}
       justifyContent={'flex-end'}
     >
-      {/*       
-      <Box
-        position={'absolute'}
-        top={0}
-        right={0}
-        width={25}
-        height={25}
-        m={4}
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
-        borderRadius={50}
-        sx={{
-          backgroundColor: '#fff'
+      <Link
+        href={link}
+        passHref
+        style={{
+          textDecoration: 'none',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%'
         }}
-      >
-        <Add sx={{ color: '#a35' }} />
-      </Box> */}
+      ></Link>
       <Box width={'80%'} px={6} py={8}>
         <Typography
           sx={{
             color: '#fff',
-            fontSize: 35,
             fontWeight: 300,
             textAlign: 'left',
             mt: 2,
             lineHeight: 1
           }}
+          fontSize={{ xs: 20, md: 25, lg: 35 }}
         >
           {title}
         </Typography>

@@ -10,12 +10,10 @@ import Card from 'src/views/pages/home/Card'
 const Home = () => {
   const controls = useAnimation()
   const theme = useTheme()
-
   const getRandomColor = () => {
-
     const colors = [
       theme.palette.primary.main,
-      theme.palette.secondary.main,
+      theme.palette.secondary.main
 
       // theme.palette.info.main,
       // theme.palette.success.main,
@@ -30,17 +28,50 @@ const Home = () => {
     controls.start('visible')
   }, [])
 
+  const cardsData = [
+    { index: 0, title: '', link: '', height: '35%', logo: true },
+    { index: 1, title: 'Knowledge HUB', link: '/second-page' },
+    { index: 2, title: 'Brand & Marketing Central', link: '/second-page' },
+    { index: 3, title: 'Human Resources System', link: '/second-page', height: '50%' },
+    { index: 4, title: 'Events Calendar', link: '/second-page' },
+    { index: 5, title: 'Learning & Development Community', link: '/second-page', height: '50%' },
+    { index: 6, title: 'Global News', link: '/second-page', height: '30%' },
+    { index: 7, title: 'People Directory', link: '/second-page' }
+  ]
+
+  const renderCards = () => {
+    return cardsData.map((card, index) => {
+      if (index % 2 === 0) {
+        return (
+          <Grid
+            item
+            xs={6}
+            md={6}
+            lg={3}
+            display={'flex'}
+            flexDirection={'column'}
+            key={index}
+            minHeight={{ xs: '600px', lg: '200px' }}
+          >
+            <Card {...card} bgColor={getRandomColor()} />
+            {cardsData[index + 1] && <Card {...cardsData[index + 1]} bgColor={getRandomColor()} />}
+          </Grid>
+        )
+      } else {
+        return null
+      }
+    })
+  }
+
   return (
     <Box
       py={16}
-      px={32}
+      px={{ xs: 6, md: 16, lg: 32 }}
       sx={{
         height: '100vh'
       }}
       display={'flex'}
       flexDirection={'column'}
-      justifyContent={'flex-start'}
-      alignItems={'center'}
     >
       <Box
         width={'100%'}
@@ -57,7 +88,7 @@ const Home = () => {
       >
         <AccountCircle
           sx={{
-            fontSize: 75
+            fontSize: { xs: 50, md: 65, lg: 75 }
           }}
         />
       </Box>
@@ -73,22 +104,7 @@ const Home = () => {
         animate={controls}
         variants={{}}
       >
-        <Grid item xs={6} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
-          <Card height={'35%'} logo index={0} title='' bgColor={getRandomColor()} />
-          <Card index={1} title='Knowledge HUB' arrow  bgColor={getRandomColor()} />
-        </Grid>
-        <Grid item xs={6} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
-          <Card index={2} title='Brand & Marketing Central' bgColor={getRandomColor()} />
-          <Card height={'50%'} index={3} title='Human Resources System' bgColor={getRandomColor()} />
-        </Grid>
-        <Grid item xs={6} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
-          <Card  index={4} title='Events Calendar'  bgColor={getRandomColor()} />
-          <Card height={'50%'} index={5} title='Learning & Development Community' bgColor={getRandomColor()} />
-        </Grid>
-        <Grid item xs={6} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
-          <Card height={'30%'} index={6} title='Global News' bgColor={getRandomColor()} />
-          <Card index={7} title='People Directory' bgColor={getRandomColor()} />
-        </Grid>
+        {renderCards()}
       </Grid>
     </Box>
   )
