@@ -18,6 +18,24 @@ const UserThemeOptions = (): ThemeOptions => {
   // const palette = corePalette(mode, skin, themeColor)
 
   return {
+    typography: {
+      fontFamily: '"Roboto", sans-serif'
+    },
+    palette: {
+      primary: {
+        light: '#4381D3',
+        main: '#014BAC',
+        dark: '#003688',
+        contrastText: '#FFF'
+      },
+      secondary: {
+        light: '#FFE89F',
+        main: '#FED65D',
+        dark: '#D6AF3D',
+        contrastText: '#000'
+      }
+    }
+
     /*
     palette:{
       primary: {

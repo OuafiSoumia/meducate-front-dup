@@ -1,12 +1,35 @@
 // ** MUI Imports
 
 import Grid from '@mui/material/Grid'
-
-import { JSXElementConstructor, ReactElement } from 'react'
-import { AccountCircle, Add,ArrowCircleRightOutlined } from '@mui/icons-material'
-import { Box, Typography } from '@mui/material'
+import { JSXElementConstructor, ReactElement, useEffect } from 'react'
+import { AccountCircle } from '@mui/icons-material'
+import { Box, useTheme } from '@mui/material'
+import { motion, useAnimation } from 'framer-motion'
+import Card from 'src/views/pages/home/Card'
 
 const Home = () => {
+  const controls = useAnimation()
+  const theme = useTheme()
+
+  const getRandomColor = () => {
+
+    const colors = [
+      theme.palette.primary.main,
+      theme.palette.secondary.main,
+
+      // theme.palette.info.main,
+      // theme.palette.success.main,
+      // theme.palette.warning.main,
+      // theme.palette.error.main
+    ]
+
+    return colors[Math.floor(Math.random() * colors.length)]
+  }
+
+  useEffect(() => {
+    controls.start('visible')
+  }, [])
+
   return (
     <Box
       py={16}
@@ -28,6 +51,9 @@ const Home = () => {
         sx={{
           maxHeight: '80px'
         }}
+        component={motion.div}
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
       >
         <AccountCircle
           sx={{
@@ -38,27 +64,30 @@ const Home = () => {
 
       <Grid
         sx={{
-          // flexGrow: 1,
           flex: 1
         }}
         container
         spacing={6}
+        component={motion.div}
+        initial='hidden'
+        animate={controls}
+        variants={{}}
       >
-        <Grid item xs={12} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
-          <Card height={'30%'}/>
-          <Card arrow={true}/>
+        <Grid item xs={6} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
+          <Card height={'35%'} logo index={0} title='' bgColor={getRandomColor()} />
+          <Card index={1} title='Knowledge HUB' arrow  bgColor={getRandomColor()} />
         </Grid>
-        <Grid item xs={12} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
-          <Card/>
-          <Card height={'40%'}/>
+        <Grid item xs={6} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
+          <Card index={2} title='Brand & Marketing Central' bgColor={getRandomColor()} />
+          <Card height={'50%'} index={3} title='Human Resources System' bgColor={getRandomColor()} />
         </Grid>
-        <Grid item xs={12} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
-          <Card height={'30%'}/>
-          <Card />
+        <Grid item xs={6} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
+          <Card  index={4} title='Events Calendar'  bgColor={getRandomColor()} />
+          <Card height={'50%'} index={5} title='Learning & Development Community' bgColor={getRandomColor()} />
         </Grid>
-        <Grid item xs={12} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
-          <Card height={'60%'}/>
-          <Card />
+        <Grid item xs={6} md={6} lg={3} display={'flex'} flexDirection={{ xs: 'row', md: 'column' }}>
+          <Card height={'30%'} index={6} title='Global News' bgColor={getRandomColor()} />
+          <Card index={7} title='People Directory' bgColor={getRandomColor()} />
         </Grid>
       </Grid>
     </Box>
@@ -66,75 +95,5 @@ const Home = () => {
 }
 
 Home.getLayout = (page: ReactElement<any, string | JSXElementConstructor<any>>) => page
-
-const Card = ({height=null,arrow=false}:{height?:any,arrow?:boolean}) => {
-  
-  return (
-    <Box
-      borderRadius={2}
-      m={2}
-      sx={height? {
-        backgroundColor: '#a35',
-
-      }:{
-        backgroundColor: '#a35',
-        flex:1
-
-      }}
-      position={'relative'}
-      width={'100%'}
-      {...(height?{height}:{})}
-      display={'flex'}
-      flexDirection={'column'}
-      justifyContent={'flex-end'}
-    >
-      <Box
-        position={'absolute'}
-        top={0}
-        right={0}
-        width={25}
-        height={25}
-        m={4}
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
-        borderRadius={50}
-        sx={{
-          backgroundColor: '#fff'
-        }}
-      >
-        <Add sx={{color:'#a35'}}/>
-      </Box>
-      <Box
-      width={'80%'}
-      p={4}
-      >
-        <Typography 
-        sx={{
-          color:'#fff',
-          fontSize: 40,
-          fontWeight: 100,
-          textAlign: 'left',
-          mt: 2,
-          lineHeight: 1
-        }}
-        >
-          Brand & Marketing Central
-        </Typography>
-        {
-          arrow && (<Box my={6}>
-          <ArrowCircleRightOutlined
-           sx={{
-            fontSize: 50,
-            color: '#fff',
-          }}
-          />
-        </Box>)
-        }
-
-      </Box>
-    </Box>
-  )
-}
 
 export default Home
