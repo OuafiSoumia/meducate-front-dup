@@ -2,14 +2,15 @@
 
 import Grid from '@mui/material/Grid'
 import { JSXElementConstructor, ReactElement, useEffect } from 'react'
-import { AccountCircle } from '@mui/icons-material'
-import { Box, useTheme } from '@mui/material'
+import { Avatar, Badge, Box, useTheme } from '@mui/material'
 import { motion, useAnimation } from 'framer-motion'
 import Card from 'src/views/pages/home/Card'
+import { useRouter } from 'next/router'
 
 const Home = () => {
   const controls = useAnimation()
   const theme = useTheme()
+  const router = useRouter()
   const getRandomColor = () => {
     const colors = [
       theme.palette.primary.main,
@@ -33,6 +34,9 @@ const Home = () => {
     { index: 6, title: 'Global News', link: '/second-page', height: '30%' },
     { index: 7, title: 'People Directory', link: '/second-page' }
   ]
+  const handleRedirect = () => {
+    router.push('/second-page')
+  }
 
   const renderCards = () => {
     return cardsData.map((card, index) => {
@@ -81,11 +85,22 @@ const Home = () => {
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
       >
-        <AccountCircle
-          sx={{
-            fontSize: { xs: 50, md: 65, lg: 75 }
-          }}
+        <Badge
+        overlap='circular'
+        onClick={handleRedirect}
+        sx={{ ml: 2, cursor: 'pointer' }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
+      >
+        <Avatar
+          alt='John Doe'
+          onClick={handleRedirect}
+          sx={{ width: 64, height: 64 }}
+          src='/images/avatars/user.png'
         />
+      </Badge>
       </Box>
 
       <Grid
