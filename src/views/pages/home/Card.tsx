@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type CardProps = {
   height?: any
@@ -33,6 +34,7 @@ const Card = ({ height = null, arrow = false, logo = false, index, title, bgColo
   const offset = useRef({ top: 0, left: 0 })
   const delayRef = useRef(0)
   const ref = useRef<HTMLDivElement>()
+  const {t} = useTranslation()
 
   useLayoutEffect(() => {
     const element = ref.current
@@ -129,7 +131,7 @@ const Card = ({ height = null, arrow = false, logo = false, index, title, bgColo
           }}
           fontSize={{ xs: 20, md: 25, lg: 35 }}
         >
-          {title}
+          {t(title)}
         </Typography>
         {arrow && (
           <Box

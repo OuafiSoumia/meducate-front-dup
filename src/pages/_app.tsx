@@ -66,6 +66,10 @@ import '../../styles/globals.css'
 import { Provider } from 'react-redux'
 import { store } from 'src/store'
 
+//i18n
+import 'src/configs/i18n'
+
+
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
   Component: NextPage
