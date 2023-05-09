@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, SyntheticEvent, Fragment } from 'react'
+import { useState, SyntheticEvent, Fragment, useEffect } from 'react'
 
 // ** Next Import
 import { useRouter } from 'next/router'
@@ -45,7 +45,7 @@ const UserDropdown = (props: Props) => {
 
   // ** Hooks
   const router = useRouter()
-  const { logout } = useAuth()
+  const auth = useAuth()
 
   // ** Vars
   const { direction } = settings
@@ -59,6 +59,9 @@ const UserDropdown = (props: Props) => {
       router.push(url)
     }
     setAnchorEl(null)
+  }
+  const handleRedirect = () => {
+    router.push('/login')
   }
 
   const styles = {
@@ -77,13 +80,17 @@ const UserDropdown = (props: Props) => {
   }
 
   const handleLogout = () => {
-    logout()
+    auth.logout()
     handleDropdownClose()
   }
+  useEffect(() => {
+    console.log(auth.user)
+  }, [auth.user])
 
   return (
     <Fragment>
-      <Badge
+      {
+        auth.user ? (<Badge
         overlap='circular'
         onClick={handleDropdownOpen}
         sx={{ ml: 2, cursor: 'pointer' }}
@@ -99,7 +106,24 @@ const UserDropdown = (props: Props) => {
           sx={{ width: 40, height: 40 }}
           src='/images/avatars/1.png'
         />
-      </Badge>
+      </Badge>):
+      (<Badge
+        overlap='circular'
+        onClick={handleRedirect}
+        sx={{ ml: 2, cursor: 'pointer' }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
+      >
+        <Avatar
+          alt='John Doe'
+          onClick={handleRedirect}
+          sx={{ width: 40, height: 40 }}
+          src='/images/avatars/user.png'
+        />
+      </Badge>)
+      }
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
