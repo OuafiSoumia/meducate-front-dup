@@ -1,38 +1,110 @@
 // ** MUI Imports
-import Card from '@mui/material/Card'
+
 import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
+import { JSXElementConstructor, ReactElement, useEffect } from 'react'
+import { AccountCircle } from '@mui/icons-material'
+import { Box, useTheme } from '@mui/material'
+import { motion, useAnimation } from 'framer-motion'
+import Card from 'src/views/pages/home/Card'
 
 const Home = () => {
+  const controls = useAnimation()
+  const theme = useTheme()
+  const getRandomColor = () => {
+    const colors = [
+      theme.palette.primary.main,
+      theme.palette.secondary.main
+    ]
+
+    return colors[Math.floor(Math.random() * colors.length)]
+  }
+
+  useEffect(() => {
+    controls.start('visible')
+  }, [])
+
+  const cardsData = [
+    { index: 0, title: '', link: '', height: '35%', logo: true },
+    { index: 1, title: 'Knowledge HUB', link: '/second-page' },
+    { index: 2, title: 'Brand & Marketing Central', link: '/second-page' },
+    { index: 3, title: 'Human Resources System', link: '/second-page', height: '50%' },
+    { index: 4, title: 'Events Calendar', link: '/second-page' },
+    { index: 5, title: 'Learning & Development Community', link: '/second-page', height: '50%' },
+    { index: 6, title: 'Global News', link: '/second-page', height: '30%' },
+    { index: 7, title: 'People Directory', link: '/second-page' }
+  ]
+
+  const renderCards = () => {
+    return cardsData.map((card, index) => {
+      if (index % 2 === 0) {
+        return (
+          <Grid
+            item
+            xs={6}
+            md={6}
+            lg={3}
+            display={'flex'}
+            flexDirection={'column'}
+            key={index}
+            minHeight={{ xs: '600px', lg: '200px' }}
+          >
+            <Card {...card} bgColor={getRandomColor()} />
+            {cardsData[index + 1] && <Card {...cardsData[index + 1]} bgColor={getRandomColor()} />}
+          </Grid>
+        )
+      } else {
+        return null
+      }
+    })
+  }
+
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <Card>
-          <CardHeader title='Kick start your project 🚀'></CardHeader>
-          <CardContent>
-            <Typography sx={{ mb: 2 }}>All the best for your new project.</Typography>
-            <Typography>
-              Please make sure to read our Template Documentation to understand where to go from here and how to use our
-              template.
-            </Typography>
-          </CardContent>
-        </Card>
+    <Box
+      py={16}
+      px={{ xs: 6, md: 16, lg: 32 }}
+      sx={{
+        height: '100vh'
+      }}
+      display={'flex'}
+      flexDirection={'column'}
+    >
+      <Box
+        width={'100%'}
+        py={4}
+        display='flex'
+        justifyContent='flex-end'
+        alignItems='flex-end'
+        sx={{
+          maxHeight: '80px'
+        }}
+        component={motion.div}
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <AccountCircle
+          sx={{
+            fontSize: { xs: 50, md: 65, lg: 75 }
+          }}
+        />
+      </Box>
+
+      <Grid
+        sx={{
+          flex: 1
+        }}
+        container
+        spacing={6}
+        component={motion.div}
+        initial='hidden'
+        animate={controls}
+        variants={{}}
+      >
+        {renderCards()}
       </Grid>
-      <Grid item xs={12}>
-        <Card>
-          <CardHeader title='ACL and JWT 🔒'></CardHeader>
-          <CardContent>
-            <Typography sx={{ mb: 2 }}>
-              Access Control (ACL) and Authentication (JWT) are the two main security features of our template and are implemented in the starter-kit as well.
-            </Typography>
-            <Typography>Please read our Authentication and ACL Documentations to get more out of them.</Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    </Box>
   )
 }
+
+Home.getLayout = (page: ReactElement<any, string | JSXElementConstructor<any>>) => page
 
 export default Home

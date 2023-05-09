@@ -1,5 +1,5 @@
 // ** React Imports
-import { useEffect } from 'react'
+import { ReactElement, useEffect ,JSXElementConstructor} from 'react'
 
 // ** Next Imports
 import { useRouter } from 'next/router'
@@ -27,7 +27,7 @@ const Home = () => {
     if (!router.isReady) {
       return
     }
-
+    router.replace('/home')
     if (auth.user && auth.user.role) {
       const homeRoute = getHomeRoute(auth.user.role)
 
@@ -39,5 +39,8 @@ const Home = () => {
 
   return <Spinner />
 }
+
+Home.getLayout = (page: ReactElement<any, string | JSXElementConstructor<any>>) => page
+
 
 export default Home

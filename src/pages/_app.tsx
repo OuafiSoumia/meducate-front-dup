@@ -66,6 +66,10 @@ import '../../styles/globals.css'
 import { Provider } from 'react-redux'
 import { store } from 'src/store'
 
+//i18n
+import 'src/configs/i18n'
+
+
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
   Component: NextPage
@@ -94,6 +98,7 @@ if (themeConfig.routingLoader) {
 }
 
 const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
+  
   if (guestGuard) {
     return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
   } else if (!guestGuard && !authGuard) {
@@ -114,17 +119,16 @@ const App = (props: ExtendedAppProps) => {
 
   const setConfig = Component.setConfig ?? undefined
 
-  const authGuard = Component.authGuard ?? true
+  const authGuard = Component.authGuard ?? false
 
-  const guestGuard = Component.guestGuard ?? false
-
+  const guestGuard = Component.guestGuard ?? true
   const aclAbilities = Component.acl ?? defaultACLObj
 
   return (
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
+          <title>{`${themeConfig.templateName}`}</title>
           <meta
             name='description'
             content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}

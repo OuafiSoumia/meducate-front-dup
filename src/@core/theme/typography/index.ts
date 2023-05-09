@@ -3,6 +3,7 @@ import { Theme } from '@mui/material/styles'
 
 const Typography = (theme: Theme) => {
   return {
+    fontFamily: '"Roboto", sans-serif',
     h1: {
       fontWeight: 500,
       letterSpacing: '-1.5px',
