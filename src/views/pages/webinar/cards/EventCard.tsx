@@ -6,31 +6,78 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import AvatarGroup from '@mui/material/AvatarGroup'
+import ReactPlayer from 'react-player'
+import Countdown from '../Countdown'
 
 
 const EventCard = () => {
-
   return (
-    <Card sx={{ position: 'relative', alignItems : 'center', justifyContent : 'center', margin : '0 auto', padding : '0 10' }}>
-      <CardMedia sx={{ height: '12.625rem' }} >
-        <img 
-          src='/images/icons/LOGO-M-V2.png' 
-          alt='Logo'
-          style={{ height: '100%', width: 'auto', alignItems : 'center', justifyContent : 'center', display : 'flex', margin : '0 auto', padding : '0 10'}} 
-        />
-      </CardMedia>    
-      <Box
+    <Card
+    sx={{
+      position: 'relative',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: '0 auto',
+      padding: '0 10',
+    }}
+  >
+    <CardMedia
+    sx={{
+      aspectRatio: '21/8.88',
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  > 
+    <Box sx={{width:'100%', height:'100%', filter: 'blur(2px)'}}>
+      <ReactPlayer
+        url={'https://www.youtube.com/watch?v=wNTrWZ42olc'}
+        playing
+        loop
+        muted
+        width="100%"
+        height="100%"
+        controls={false}
+        config={{
+          youtube: {
+            playerVars: {
+              start: 400, // Start playing from 30 seconds
+              end: 500, // Play until 60 seconds
+              showinfo: 0,
+            },
+          },
+        }}
+      />
+    </Box>
+    <Box
       sx={{
-        mt: 5.75,
-        ml: 4,
-        mr: 4,
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 1,
+        textAlign: 'center',
+        width: '100%',
       }}
-      > 
+    >
+      <Countdown />
+    </Box>
+  </CardMedia>
+    
+
+      <Box
+        sx={{
+          mt: 5.75,
+          ml: 4,
+          mr: 4,
+          display: 'flex',
+          flexWrap: 'wrap',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <Avatar
           alt='Robert Meyer'
           src='/images/avatars/1.png'
@@ -84,6 +131,7 @@ const EventCard = () => {
             <Avatar src='/images/avatars/6.png' alt='Hallie Richards' />
           </AvatarGroup>
         </Box>
+        
       </CardContent>
     </Card>
 
