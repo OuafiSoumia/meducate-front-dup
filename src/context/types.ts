@@ -23,6 +23,7 @@ export type UserDataType = {
   sector?: string
   workExperience?: string
   institution?: string
+  avatar?: string
 }
 
 export type AuthValuesType = {
