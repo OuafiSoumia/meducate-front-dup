@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
@@ -6,11 +8,14 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import AvatarGroup from '@mui/material/AvatarGroup'
+import WebinarForm from '../JoinDialogueForm'
+
 import ReactPlayer from 'react-player'
 import Countdown from '../Countdown'
 
-
 const EventCard = () => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   return (
     <Card
     sx={{
@@ -87,7 +92,7 @@ const EventCard = () => {
             border: theme => `0.25rem solid ${theme.palette.common.white}`
           }}    
         />
-        <Button variant='contained'>Join Webinar</Button>
+        <Button variant='contained' onClick={() => setDialogOpen(true)}>Join Webinar</Button>
       </Box> 
       <CardContent>
         <Box
@@ -133,6 +138,7 @@ const EventCard = () => {
         </Box>
         
       </CardContent>
+      <WebinarForm open={dialogOpen} onClose={() => setDialogOpen(false)} />
     </Card>
 
   )
