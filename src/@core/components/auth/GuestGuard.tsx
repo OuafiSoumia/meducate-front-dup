@@ -13,24 +13,22 @@ interface GuestGuardProps {
 }
 
 const GuestGuard = (props: GuestGuardProps) => {
-  const { children, fallback } = props
-  const auth = useAuth()
+  const { children } = props
+  
   const router = useRouter()
+  const { user } = useAuth()
 
   useEffect(() => {
     if (!router.isReady) {
       return
     }
+console.log('user', user);
 
-    if (window.localStorage.getItem('userData')) {
-      router.replace('/')
-    }
+   
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.route])
   
-  if (auth.loading || (!auth.loading && auth.user !== null)) {
-    return fallback
-  }
+ 
 
   return <>{children}</>
 }
