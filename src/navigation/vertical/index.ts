@@ -20,19 +20,19 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: 'single webinar',
-          path: '/webinar/single-webinar'
+          path: '/apps/webinar/single-webinar'
         },
         {
           title: 'Stage',
-          path: '/webinar/stage'
+          path: '/apps/webinar/stage'
         },
         {
           title: 'schedule',
-          path: '/webinar/schedule'
+          path: '/apps/webinar/schedule'
         },
         {
           title: 'Speakers',
-          path: '/webinar/speakers'
+          path: '/apps/webinar/speakers'
         }
       ]
     },
