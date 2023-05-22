@@ -12,8 +12,8 @@ import MuiCard, { CardProps } from '@mui/material/Card'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 import { useRouter } from 'next/router'
 import Lottie from 'lottie-react'
-import apiClient from 'src/axios/client'
 import succesAnimation from 'src/animations/69013-successful-check.json'
+import AuthService from 'src/services/auth'
 
 // ** Styled Components
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
@@ -73,8 +73,10 @@ const VerifyEmail = (
 
 export const getServerSideProps = async ({ params }: { params: { token: string } }) => {
     const { token } = params
+    
     try {
-        const {data} = await apiClient.get(`/user/verification/${token}`)
+
+        const data = await AuthService.verifyEmail(token)
 
         return {
             props: {
@@ -84,6 +86,7 @@ export const getServerSideProps = async ({ params }: { params: { token: string }
 
     }catch(err:any){
         //if forbidden redirect to 404
+        
         if(err.response.status === 403){
             return {
                 redirect: {

@@ -1,20 +1,16 @@
 // ** Toolkit imports
 import { configureStore } from '@reduxjs/toolkit'
-import example from './apps/example'
 import countries from './countries'
 import register from './apps/register'
 import verification from './apps/verification'
-import login from './apps/login'
 
 // ** Reducers
 
 export const store = configureStore({
   reducer: {
-    example,
     countries,
     register,
-    verification,
-    login
+    verification
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

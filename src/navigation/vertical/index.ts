@@ -6,12 +6,17 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Home',
       path: '/home',
-      icon: 'mdi:home-outline',
+      icon: 'mdi:home-outline'
+    },
+    {
+      title: 'Dashboard',
+      path: '/dashboard',
+      icon: 'mdi:view-dashboard-outline'
     },
     {
       title: 'Second Page',
       path: '/second-page',
-      icon: 'mdi:email-outline',
+      icon: 'mdi:email-outline'
     },
     {
       title: 'Webinar',
@@ -41,7 +46,7 @@ const navigation = (): VerticalNavItemsType => {
       action: 'read',
       subject: 'acl-page',
       title: 'Access Control',
-      icon: 'mdi:shield-outline',
+      icon: 'mdi:shield-outline'
     }
   ]
 }

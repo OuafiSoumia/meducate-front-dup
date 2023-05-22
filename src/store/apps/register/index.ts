@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import apiClient from 'src/axios/client'
+import AuthService from 'src/services/auth'
 import { PersonalInfo, ProfessionalInfo } from 'src/types/apps/register'
 
 interface RegisterState {
@@ -52,9 +52,9 @@ export const registerUser = createAsyncThunk(
         }
       }
 
-      const response = await apiClient.post('/auth/sign-up', body)
+      const response = await AuthService.registerUser(body)
 
-      return response.data
+      return response
     } catch (err: any) {
       if (!err.response) {
         throw err

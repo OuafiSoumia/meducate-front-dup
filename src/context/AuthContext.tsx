@@ -10,7 +10,7 @@ import authConfig from 'src/configs/auth'
 
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
-import apiClient from 'src/axios/client'
+import AuthService from 'src/services/auth'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -43,15 +43,11 @@ const AuthProvider = ({ children }: Props) => {
       
       if (storedToken) {
         setLoading(true)
-        await apiClient
-          .get(authConfig.meEndpoint, {
-            headers: {
-              Authorization: `Bearer ${storedToken}`
-            }
-          })
+        await AuthService
+          .me()
           .then(async response => {
             setLoading(false)
-            setUser({ ...response.data.data })
+            setUser({ ...response.data })
           })
           .catch(() => {
             localStorage.removeItem('userData')
@@ -73,18 +69,18 @@ const AuthProvider = ({ children }: Props) => {
   }, [])
 
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
-    apiClient
-      .post(authConfig.loginEndpoint, params)
+    AuthService
+      .login(params)
       .then(async response => {
         params.rememberMe
-          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.data.accessToken)
+          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)
           : null
         const returnUrl = router.query.returnUrl
 
-        setUser({ ...response.data.data.user })
-        console.log('response.data.data.user', response.data.data.accessToken);
+        setUser({ ...response.data.user })
+        console.log('response.data.data.user', response.data.accessToken);
         
-        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.data.user)) : null
+        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.user)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import apiClient from 'src/axios/client'
+import AuthService from 'src/services/auth'
 
 interface VerificationState {
   email: string
@@ -17,9 +17,9 @@ export const resendVerificationEmail = createAsyncThunk(
   'verification/resendVerificationEmail',
   async (email: string, { rejectWithValue }) => {
     try {
-      const response = await apiClient.post('/user/verification/request', { email })
+      const response = await AuthService.requestVerificationEmail(email)
 
-      return response.data
+      return response
     } catch (err: any) {
       if (!err.response) {
         throw err
