@@ -19,6 +19,9 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:email-outline'
     },
     {
+      sectionTitle: 'Apps'
+    },
+    {
       title: 'Webinar',
       icon: 'solar:play-stream-broken',
       badgeColor: 'success',
@@ -46,8 +49,17 @@ const navigation = (): VerticalNavItemsType => {
       action: 'read',
       subject: 'acl-page',
       title: 'Access Control',
-      icon: 'mdi:shield-outline'
-    }
+      icon: 'mdi:shield-outline',
+    },
+    {
+      sectionTitle: 'Admin'
+    },
+    {
+      title :'Webinar',
+      icon: 'mdi:acount',
+      path: '/admin/webinar'
+    },
+
   ]
 }
 
