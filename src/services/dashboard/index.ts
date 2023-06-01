@@ -1,5 +1,15 @@
 import dashboardApiClient from 'src/axios/dashboardClient'
-import { DateRange, DateRangeWithSentiment, SearchName, SentimentTrend, TopNames } from 'src/types/apps/dashboard'
+import {
+  Article,
+  DateRange,
+  DateRangeWithSentiment,
+  EntityTreeMap,
+  Organization,
+  SearchName,
+  SentimentTrend,
+  SentimentTrendId,
+  TopNames
+} from 'src/types/apps/dashboard'
 
 class DashboardService {
   static async getTopNames(daterange: DateRange) {
@@ -38,7 +48,29 @@ class DashboardService {
 
   static async getByID(id: string) {
     try {
-      const response = await dashboardApiClient.get(`/get-by-id/${id}`)
+      console.log('id', id)
+
+      const response = await dashboardApiClient.get<Organization>(`/get-by-id/${id}`)
+
+      return response.data
+    } catch (err: any) {
+      throw err
+    }
+  }
+  static async getArticlesByID(id: string, page: number) {
+    try {
+      console.log('id', id)
+
+      const response = await dashboardApiClient.get<Array<Article>>(`/get-articles-by-id/${id}/page/${page}`)
+
+      return response.data
+    } catch (err: any) {
+      throw err
+    }
+  }
+  static async getEntityTreeMap(id: string) {
+    try {
+      const response = await dashboardApiClient.get<EntityTreeMap>(`/entity-tree-map/${id}`)
 
       return response.data
     } catch (err: any) {
@@ -50,6 +82,25 @@ class DashboardService {
       const response = await dashboardApiClient.get<Array<SentimentTrend>>(
         `/sentiment-trend-over-time/from/${daterange.startMonth}/${daterange.startYear}/to/${daterange.endMonth}/${daterange.endYear}`
       )
+
+      return response.data
+    } catch (err: any) {
+      throw err
+    }
+  }
+
+  static async getSentimentTrendById(id: string) {
+    try {
+      const response = await dashboardApiClient.get<SentimentTrendId>(`/sentiment-data-by-id/${id}`)
+
+      return response.data
+    } catch (err: any) {
+      throw err
+    }
+  }
+  static async getWordCloudById(id: string, sentiment: string) {
+    try {
+      const response = await dashboardApiClient.get<string>(`/wordcloud-by-id/${id}/sentiment/${sentiment}`)
 
       return response.data
     } catch (err: any) {
