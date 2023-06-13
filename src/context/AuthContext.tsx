@@ -39,7 +39,7 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-      console.log('storedToken', storedToken);
+      
       
       if (storedToken) {
         setLoading(true)
@@ -78,7 +78,7 @@ const AuthProvider = ({ children }: Props) => {
         const returnUrl = router.query.returnUrl
 
         setUser({ ...response.data.user })
-        console.log('response.data.data.user', response.data.accessToken);
+        
         
         params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.user)) : null
 

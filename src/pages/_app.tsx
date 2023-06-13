@@ -7,10 +7,6 @@ import { Router } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
-
-
-
-
 // ** Loader Import
 import NProgress from 'nprogress'
 
@@ -22,7 +18,6 @@ import type { EmotionCache } from '@emotion/cache'
 
 import { defaultACLObj } from 'src/configs/acl'
 import themeConfig from 'src/configs/themeConfig'
-
 
 // ** Third Party Import
 import { Toaster } from 'react-hot-toast'
@@ -67,7 +62,6 @@ import { store } from 'src/store'
 //i18n
 import 'src/configs/i18n'
 
-
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
   Component: NextPage
@@ -97,12 +91,14 @@ if (themeConfig.routingLoader) {
 
 const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
   
-  if (guestGuard) {
-    return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
+  
+
+  if (authGuard) {
+    return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
   } else if (!guestGuard && !authGuard) {
     return <>{children}</>
   } else {
-    return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
+    return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
   }
 }
 
@@ -121,6 +117,7 @@ const App = (props: ExtendedAppProps) => {
 
   const guestGuard = Component.guestGuard ?? true
   const aclAbilities = Component.acl ?? defaultACLObj
+
 
   return (
     <Provider store={store}>
@@ -143,7 +140,7 @@ const App = (props: ExtendedAppProps) => {
                   <ThemeComponent settings={settings}>
                     <WindowWrapper>
                       <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                        <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard}>
+                        <AclGuard aclAbilities={aclAbilities} authGuard={authGuard}>
                           {getLayout(<Component {...pageProps} />)}
                         </AclGuard>
                       </Guard>
@@ -158,8 +155,7 @@ const App = (props: ExtendedAppProps) => {
           </SettingsProvider>
         </AuthProvider>
       </CacheProvider>
-      </Provider>
-   
+    </Provider>
   )
 }
 

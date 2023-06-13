@@ -37,12 +37,13 @@ const EntityTreeMapChart = ({ id }: EntityTreeMapProps) => {
       .then((res: EntityTreeMap) => {
         const series = res.series
         setData(series)
-        console.log(series);
+        
         
         setKey(key + 1)
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
+        
       })
   }
  

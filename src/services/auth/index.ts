@@ -16,7 +16,6 @@ class AuthService {
   static async verifyEmail(token: string) {
     try {
       const response = await apiClient.get(`/user/verification/${token}`)
-      console.log(response.data)
 
       return response.data
     } catch (err: any) {

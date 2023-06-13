@@ -50,7 +50,8 @@ const TopNamesChart = () => {
         setKey(key + 1)
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
+        
       })
   }
   const getCategory = (data: Array<TopNames>) => {
@@ -79,7 +80,7 @@ const TopNamesChart = () => {
 
       return
     }
-    console.log(start, end)
+    
 
     const startDate = new Date(start)
     const endDate = new Date(end)

@@ -49,12 +49,12 @@ const StepProfessionalInfo = ({ handlePrev }: { handlePrev: () => void }) => {
     dispatch(setProfessionalInfo(data))
 
    dispatch(registerUser({ personalInfo, professionalInfo: data })).unwrap().then(({email}:{email:string}) => {
-    console.log('email', email);
+    
     
     dispatch(setEmail(email))
     
    }).catch((err) => {
-      console.log('err', err);
+      
       
       toast.error(err.message)
    })

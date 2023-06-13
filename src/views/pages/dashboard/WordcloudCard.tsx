@@ -48,7 +48,8 @@ const WordcloudCard = () => {
         setKey(key + 1)
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
+        
       })
   }
  
@@ -70,7 +71,7 @@ const WordcloudCard = () => {
 
       return
     }
-    console.log(start, end)
+    
 
     const startDate = new Date(start)
     const endDate = new Date(end)

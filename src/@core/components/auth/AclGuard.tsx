@@ -1,8 +1,6 @@
 // ** React Imports
 import { ReactNode, useState } from 'react'
 
-// ** Next Imports
-import { useRouter } from 'next/router'
 
 // ** Types
 import type { ACLObj, AppAbility } from 'src/configs/acl'
@@ -22,28 +20,23 @@ import { useAuth } from 'src/hooks/useAuth'
 
 interface AclGuardProps {
   children: ReactNode
-  guestGuard: boolean
+  authGuard: boolean
   aclAbilities: ACLObj
 }
 
 const AclGuard = (props: AclGuardProps) => {
   // ** Props
-  const { aclAbilities, children, guestGuard } = props
+  const { aclAbilities, children,authGuard } = props
 
   const [ability, setAbility] = useState<AppAbility | undefined>(undefined)
 
   // ** Hooks
   const auth = useAuth()
-  const router = useRouter()
 
-  // If guestGuard is true and user is not logged in or its an error page, render the page without checking access
-  if (guestGuard || router.route === '/404' || router.route === '/500' || router.route === '/') {
-    
-    return <>{children}</>
-  }
+  if (authGuard){
+if (auth.user && auth.user.role && !ability) {
+  
 
-  // User is logged in, build ability for the user based on his role
-  if (auth.user && auth.user.role && !ability) {
     setAbility(buildAbilityFor(auth.user.role, aclAbilities.subject))
   }
 
@@ -58,6 +51,17 @@ const AclGuard = (props: AclGuardProps) => {
       <NotAuthorized />
     </BlankLayout>
   )
+  }
+
+  // If guestGuard is true and user is not logged in or its an error page, render the page without checking access
+ 
+    
+    
+    return <>{children}</>
+  
+  
+  // User is logged in, build ability for the user based on his role
+  
 }
 
 export default AclGuard

@@ -58,7 +58,8 @@ const SentimentTrendChart = () => {
         setKey(key + 1)
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
+        
       })
   }
   const getCategory = (data: Array<SentimentTrend>) => {
@@ -78,7 +79,7 @@ const SentimentTrendChart = () => {
       {
         name: 'Positive',
         data: data.map((item: SentimentTrend) => {
-            console.log(item);
+            
             
           return item.sentiments.filter((item: any) => item.sentiment === 'POSITIVE')[0].count
         })
@@ -104,7 +105,7 @@ const SentimentTrendChart = () => {
 
       return
     }
-    console.log(start, end)
+    
 
     const startDate = new Date(start)
     const endDate = new Date(end)

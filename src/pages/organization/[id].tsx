@@ -23,7 +23,7 @@ const OrganizationPage = ({ data }: { data: Organization }) => {
   const { status, articles } = useSelector((state: any) => state.organization.ArticlesById)
 
   useEffect(() => {
-    console.log('page', page)
+    
     getData(data._id, page)
   }, [page])
 
@@ -80,7 +80,7 @@ export const getServerSideProps = async ({ params }: { params: { id: string } })
     }
   } catch (err: any) {
     //if forbidden redirect to 404
-    console.log('err', err)
+    
 
     if (err.response.status === 403) {
       return {

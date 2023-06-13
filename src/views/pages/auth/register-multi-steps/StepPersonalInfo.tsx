@@ -66,7 +66,7 @@ const StepPersonalDetails = ({ handleNext }: { handleNext: () => void }) => {
   })
   const watchCountry = watch('country')
   const onSubmit = (data: PersonalInfo) => {
-    console.log(data)
+    
     dispatch(setPersonalInfo(data))
     handleNext()
   }

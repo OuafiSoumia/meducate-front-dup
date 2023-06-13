@@ -4,8 +4,6 @@ import { ReactNode, ReactElement, useEffect } from 'react'
 // ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Hooks Import
-import { useAuth } from 'src/hooks/useAuth'
 
 interface GuestGuardProps {
   children: ReactNode
@@ -16,13 +14,11 @@ const GuestGuard = (props: GuestGuardProps) => {
   const { children } = props
   
   const router = useRouter()
-  const { user } = useAuth()
 
   useEffect(() => {
     if (!router.isReady) {
       return
     }
-console.log('user', user);
 
    
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -48,8 +48,6 @@ class DashboardService {
 
   static async getByID(id: string) {
     try {
-      console.log('id', id)
-
       const response = await dashboardApiClient.get<Organization>(`/get-by-id/${id}`)
 
       return response.data
@@ -59,8 +57,6 @@ class DashboardService {
   }
   static async getArticlesByID(id: string, page: number) {
     try {
-      console.log('id', id)
-
       const response = await dashboardApiClient.get<Array<Article>>(`/get-articles-by-id/${id}/page/${page}`)
 
       return response.data

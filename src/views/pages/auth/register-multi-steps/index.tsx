@@ -47,7 +47,7 @@ const RegisterMultiSteps = () => {
     setActiveStep(activeStep + 1)
   }
   const handlePrev = () => {
-    console.log('activeStep', activeStep);
+    
     
     if (activeStep !== 0) {
       setActiveStep(activeStep - 1)

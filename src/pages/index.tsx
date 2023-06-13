@@ -22,7 +22,7 @@ const Home = () => {
     if (!router.isReady) {
       return
     }
-    console.log('router');
+    
     
     router.replace('/home')
     
