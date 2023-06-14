@@ -48,6 +48,7 @@ const WordcloudCard = () => {
         setKey(key + 1)
       })
       .catch(err => {
+        
         console.log(err);
         
       })

@@ -44,6 +44,7 @@ const WordcloudCard = ({id,sentiment}:WordcloudCardProps) => {
       .catch(err => {
         console.log(err);
         
+        
       })
   }
  

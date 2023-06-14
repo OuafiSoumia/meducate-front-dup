@@ -60,6 +60,7 @@ const SentimentTrendChart = () => {
       .catch(err => {
         console.log(err);
         
+        
       })
   }
   const getCategory = (data: Array<SentimentTrend>) => {

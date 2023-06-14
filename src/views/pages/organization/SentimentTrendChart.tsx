@@ -60,6 +60,7 @@ const SentimentTrendChart = ({id}:SentimentTrendChartProps) => {
         setKey(key + 1)
       })
       .catch(err => {
+        
         console.log(err);
         
       })

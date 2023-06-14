@@ -62,6 +62,7 @@ const TopNamesBySentimentChart = () => {
       .catch(err => {
         console.log(err);
         
+        
       })
   }
   const getCategory = (data: Array<TopNames>) => {

@@ -22,7 +22,8 @@ const CanViewNavLink = (props: Props) => {
   if (!(navLink?.action && navLink?.subject)) {
     return <>{children}</>
   }
-  
+    
+    
 
   return ability && ability.can(navLink?.action, navLink?.subject) ? <>{children}</> : null
 }

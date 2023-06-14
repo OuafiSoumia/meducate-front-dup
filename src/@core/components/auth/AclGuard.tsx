@@ -1,7 +1,6 @@
 // ** React Imports
 import { ReactNode, useState } from 'react'
 
-
 // ** Types
 import type { ACLObj, AppAbility } from 'src/configs/acl'
 
@@ -26,42 +25,41 @@ interface AclGuardProps {
 
 const AclGuard = (props: AclGuardProps) => {
   // ** Props
-  const { aclAbilities, children,authGuard } = props
+  const { aclAbilities, children, authGuard } = props
 
   const [ability, setAbility] = useState<AppAbility | undefined>(undefined)
 
   // ** Hooks
   const auth = useAuth()
-
-  if (authGuard){
-if (auth.user && auth.user.role && !ability) {
   
 
+  if (auth.user && auth.user.role && !ability) {
     setAbility(buildAbilityFor(auth.user.role, aclAbilities.subject))
   }
 
-  // Check the access of current user and render pages
-  if (ability && ability.can(aclAbilities.action, aclAbilities.subject)) {
-    return <AbilityContext.Provider value={ability}>{children}</AbilityContext.Provider>
-  }
+  if (authGuard) {
+    // Check the access of current user and render pages
+    if (ability && ability.can(aclAbilities.action, aclAbilities.subject)) {
+      return <AbilityContext.Provider value={ability}>{children}</AbilityContext.Provider>
+    }
 
-  // Render Not Authorized component if the current user has limited access
-  return (
-    <BlankLayout>
-      <NotAuthorized />
-    </BlankLayout>
-  )
+    // Render Not Authorized component if the current user has limited access
+    return (
+      <BlankLayout>
+        <NotAuthorized />
+      </BlankLayout>
+    )
+  } else {
+    if (ability) {
+      return <AbilityContext.Provider value={ability}>{children}</AbilityContext.Provider>
+    }
   }
 
   // If guestGuard is true and user is not logged in or its an error page, render the page without checking access
- 
-    
-    
-    return <>{children}</>
-  
-  
+
+  return <>{children}</>
+
   // User is logged in, build ability for the user based on his role
-  
 }
 
 export default AclGuard

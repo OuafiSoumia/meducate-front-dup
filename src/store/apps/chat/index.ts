@@ -51,8 +51,6 @@ export const getAiResponse = createAsyncThunk('appChat/getAiResponse', async (ch
 // ** Send Msg
 export const sendMsg = createAsyncThunk('appChat/sendMsg', async (obj: SendMsgPayload, { dispatch }) => {
   try {
-    console.log('payload', obj)
-
     const response = await ChatService.sendMsg(obj).then(res => {
       dispatch(selectChat(res.id))
       dispatch(fetchChatsContacts())

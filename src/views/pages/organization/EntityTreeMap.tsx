@@ -44,6 +44,7 @@ const EntityTreeMapChart = ({ id }: EntityTreeMapProps) => {
       .catch(err => {
         console.log(err);
         
+        
       })
   }
  
