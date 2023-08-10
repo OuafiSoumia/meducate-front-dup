@@ -13,6 +13,13 @@ const navigation = (): VerticalNavItemsType => {
       path: '/dashboard',
       icon: 'mdi:view-dashboard-outline'
     },
+
+    {
+      title: 'MeducateBoard',
+      path: '/analytics-dashboard',
+      icon: 'mdi:view-dashboard-outline'
+    },
+
     {
       title: 'Second Page',
       path: '/second-page',
